@@ -9,6 +9,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/combineLatest';
 
 
@@ -51,8 +52,11 @@ class QuoteDataSource extends DataSource<any> {
   connect(): Observable<Quote[]> {
     console.log('Datasource is loading..');
 
+    let quotes$ = this.quoteService.getQuotes();
+    let pagination$ = this.paginator.page.startWith({});
 
-    return Observable.combineLatest(this.quoteService.getQuotes(), this.paginator.page).map((value) => {
+
+    return Observable.combineLatest(quotes$, pagination$).map((value) => {
       console.log('Something emitted', value);
       let quotesDb = value[0];
       let pageInfo = value[1];
