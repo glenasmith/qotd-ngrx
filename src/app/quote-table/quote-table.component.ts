@@ -24,7 +24,7 @@ export class QuoteTableComponent implements OnInit {
 
   quotesDataSource: QuoteDataSource;
 
-  dbSize = 10;
+  dbSize = 1000;
 
   displayedColumns = ['quoteAuthor', 'quoteText'];
 
@@ -53,19 +53,19 @@ class QuoteDataSource extends DataSource<any> {
     console.log('Datasource is loading..');
 
     let quotes$ = this.quoteService.getQuotes();
-    let pagination$ = this.paginator.page.startWith({});
+    let pagination$ = this.paginator.page.startWith({pageIndex: 0, pageSize: 10});
 
 
     return Observable.combineLatest(quotes$, pagination$).map((value) => {
-      console.log('Something emitted', value);
+      console.log('Something emitted', value[0].length);
       let quotesDb = value[0];
       let pageInfo = value[1];
 
-      this.paginator.length = quotesDb.length;
+      this.paginator.length = quotesDb.length; //TODO: Must be a better way to lazily do this...
 
-      // Grab the page's slice of data.
-      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-      return quotesDb.splice(startIndex, this.paginator.pageSize);
+      const startIndex = pageInfo.pageIndex * pageInfo.pageSize;
+      const newData = quotesDb.slice(startIndex, startIndex + pageInfo.pageSize);
+      return newData;
     });
 
 
