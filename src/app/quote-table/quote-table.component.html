@@ -1,0 +1,22 @@
+<mat-table #table [dataSource]="quotesDataSource">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="quoteAuthor">
+    <mat-header-cell *matHeaderCellDef> Author </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.quoteAuthor}} </mat-cell>
+  </ng-container>
+
+  <!-- Progress Column -->
+  <ng-container matColumnDef="quoteText">
+    <mat-header-cell *matHeaderCellDef> Quote </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.quoteText}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</mat-table>
+
