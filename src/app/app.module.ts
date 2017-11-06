@@ -4,14 +4,19 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { QuoteTableComponent } from './quote-table/quote-table.component';
-import {MatPaginatorModule, MatSnackBarModule, MatTableModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule, MatDialogModule, MatIconModule, MatPaginatorModule, MatSnackBarModule, MatTableModule,
+  MatToolbarModule
+} from '@angular/material';
 import {QuoteService} from './quote.service';
 import {HttpClientModule} from '@angular/common/http';
+import { QuoteEditorComponent } from './quote-editor/quote-editor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuoteTableComponent
+    QuoteTableComponent,
+    QuoteEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -20,9 +25,15 @@ import {HttpClientModule} from '@angular/common/http';
     MatTableModule,
     MatSnackBarModule,
     MatPaginatorModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [QuoteService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    QuoteEditorComponent
+  ]
 })
 export class AppModule { }

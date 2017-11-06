@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Quote} from '../quote';
 import {QuoteService} from '../quote.service';
-import {MatPaginator, MatSnackBar} from '@angular/material';
+import {MatDialog, MatPaginator, MatSnackBar} from '@angular/material';
 import {DataSource} from '@angular/cdk/collections';
 
 import {Observable} from 'rxjs/Observable';
@@ -11,6 +11,7 @@ import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/combineLatest';
+import {QuoteEditorComponent} from '../quote-editor/quote-editor.component';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class QuoteTableComponent implements OnInit {
   displayedColumns = ['quoteAuthor', 'quoteText'];
 
   constructor(private quoteService: QuoteService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              public dialog: MatDialog) {
 
 
   }
@@ -40,6 +42,19 @@ export class QuoteTableComponent implements OnInit {
 
   }
 
+
+  openDialog(): void {
+    let dialogRef = this.dialog.open(QuoteEditorComponent, {
+      height: '300px',
+      width: '400px',
+      data: { quoteAuthor: "Some Author", quoteText: "This is some quote" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.quote = result;
+    });
+  }
 
 }
 

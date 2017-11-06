@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Edit Quote</h2>
+<mat-dialog-content>
+
+  <p>
+    {{ quote.quoteText }}
+  </p>
+  <p>
+    {{ quote.quoteAuthor }}
+  </p>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button  mat-raised-button color="primary" mat-dialog-close>Update</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button mat-button [mat-dialog-close]="true">Cancel</button>
+</mat-dialog-actions>
+
+
+<!--
+<button  mat-raised-button color="primary" (click)="onCloseClick()">Winning</button>
+-->
